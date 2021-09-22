@@ -32,7 +32,7 @@
 ###     3.插件及规则配置 
 如果有新增/修改 webpack 的 plugin 或者 rules , 有两种方式
 
-* configureWebpack 方式：是一种相对比较简单的方式<br>
+* configureWebpack 方式：是一种相对比较简单的方式 
    * 它可以是一个对象：和`webpack`本身配置方式是一致，该对象将会被 `webpack-merge`合并入最终的 webpack 配置
    ```javascript
         configureWebpack: {
@@ -50,7 +50,7 @@
 * chainWebpack 方式：链式操作（高级）
     接下来所有的配置都会在该选项中进行
 ###     4.rules
-*   rules的新增<br>
+*   rules的新增 
 在 webpack 中 rules 是 module 的配置项，而所有的配置的都是挂载到 config 下的，所以新增一个rule方式：
 ```javascript
         config.module
@@ -70,7 +70,7 @@
                 });
         });
 ```
-* rules的修改<br>
+* rules的修改 
 可以使用tap方法进行修改：
 ```javascript
     config.module
@@ -119,7 +119,7 @@ config.plugin('define').tap(args => [{
     config.output.chunkFilename('./js/[name].[chunkhash:8].js');
 ```
 ##### 修改html-webpack-plugin参数
-`html-webpack-plugin` 是 webpack 已经默认配置的，默认的源模版文件是 `public/index.html` ;我们可以对其参数进行修改
+`html-webpack-plugin` 是 webpack 已经默认配置的，默认的源模版文件是 `public/index.html`；我们可以对其参数进行修改
 ```javascript
     config.plugin('html')
     .tap(options => [{
@@ -138,22 +138,22 @@ webpack默认是将`src`的别名设置为`@`, 此外，我们可以进行添加
 ### 配置选项 ###
 **baseUrl**：从 VUE CLI 3.3 起已弃用，请使用 `publicPath`
 
-**pubilcPath**： `默认：'/'`<br>
+**pubilcPath**： `默认：'/'` 
             部署应用包时的基本URL，VUE CLI 会假设你的应用是被部署在一个域名的根路径上；这个值也可以被设置为空字符串`（''）`或者是相对路径`（'./'）`，这样所有的资源都会被链接为相对路径，方便迁移。
 
-**outputDir**： `默认：'dist'`<br>
+**outputDir**： `默认：'dist'` 
             当运行 `vue-cli-service build` 时生成的生产环境构建文件的目录。注意目标目录在构建前会被清除（构建时传入 `--no-clean` 可关闭该行动）
 
-**assetsDir**： `默认：''`<br>
+**assetsDir**： `默认：''` 
             放置生成的静态资源 `(js、css、img、fonts)`的 (相对于` outputDir `的) 目录
 
-**indexPath**： `默认：'index.html'`
+**indexPath**： `默认：'index.html'` 
             指定生成的`index.html` 的输出路径 (相对于 `outputDir`)。也可以是一个绝对路径。
 
-**filenameHashing**： `默认：true`<br>
+**filenameHashing**： `默认：true` 
                   默认情况下，生成的静态资源在它们的文件名中包含了`hash` 以便更好的控制缓存。然而，这也要求`index`的 `HTML` 是被 `Vue CLI`自动生成的。如果你无法使用 `Vue CLI` 生成的 `index HTML`，你可以通过将这个选项设为`false `来关闭文件名哈希
                 
-**pages**： `默认：undefined`
+**pages**： `默认：undefined` 
         在 `multi-page `模式下构建应用。每个`“page”`应该有一个对应的 `JavaScript` 入口文件。其值应该是一个对象，对象的 `key` 是入口的名字，`value `可以是对象或字符串
 ```javascript
     pages: {
@@ -173,7 +173,7 @@ webpack默认是将`src`的别名设置为`@`, 此外，我们可以进行添加
         }
     }
 ```
-**lintOnSave**：    `默认：default（可选值：'warning'|'default'|'error')`<br>
+**lintOnSave**：    `默认：default（可选值：'warning'|'default'|'error')` 
 是否在`开发环境`下通过`eslint-loader`在每次保存时`lint`代码。这个值会在`@vue/cli-plugin-eslint`被安装之后生效
 | 值 | 说明 |
 ---|:---
@@ -181,20 +181,21 @@ true/'warning' | 编译警告，仅仅会被输出到命令行，且不会使得
 default |  错误在开发时直接显示在浏览器中，编译错误，同时也意味着lint错误将会导致编译失败
 error | 编译错误，导致编译失败
 
-**runtimeCompiler**： `默认：false`<br>
+**runtimeCompiler**： `默认：false` 
 是否使用包含运行时编译器的 `Vue` 构建版本。设置为 `true` 后你就可以在 `Vue` 组件中使用 `template`选项了，但是这会让你的应用额外增加 `10kb` 左右。
 
-**transpileDependencies**： `默认: []`<br>
-默认情况下`babel-loader`会忽略所有` node_modules`中的文件。如果你想要通过 `Babel `显式转译一个依赖，可以在这个选项中列出来。
+**transpileDependencies**： `默认: []` 
+默认情况下`babel-loader`会忽略所有` node_modules`中的文件。如果你想要通过 `Babel `显式转译一个依赖，可以在这个选项中列出来。 
+(node_modules里的依赖默认是不会编译的，会导致es6语法在ie中的语法报错，所以可以在该属性配置node_modules中指定哪些文件夹或文件需要编译)
 
-**productionSourceMap**： `默认：true`<br>
+**productionSourceMap**： `默认：true` 
 如果你不需要生产环境的` source map`，可以将其设置为`false` 以加速生产环境构建。
 
-**crossorigin**： `默认： undefined`<br>
+**crossorigin**： `默认： undefined` 
 设置生成的 HTML 中 `<link rel="stylesheet">` 和 `<script> `标签的 `crossorigin` 属性
 
     需要注意的是该选项仅影响由html-webpack-plugin 在构建时注入的标签 - 直接写在模版(public/index.html)中的标签不受影响。
-**integrity**： `默认：false`<br>
+**integrity**： `默认：false` 
 在生成的 HTML 中的`<link rel="stylesheet"> `和`<script>`标签上启用`Subresource Integrity (SRI)`。如果你构建后的文件是部署在` CDN` 上的，启用该选项可以提供额外的安全性。
 
 **configureWebpack**：
@@ -204,10 +205,10 @@ error | 编译错误，导致编译失败
 **chainWebpack**：
 * 是一个函数，会接收一个基于 `webpack-chain` 的 `ChainableConfig`实例。允许对内部的`webpack`配置进行更细粒度的修改。
 
-**css.requireModuleExtension**： `默认：true`<br>
+**css.requireModuleExtension**： `默认：true` 
 默认情况下，只有` *.module.[ext]`结尾的文件才会被视作`CSS Modules `模块。设置为` false`后你就可以去掉文件名中的`.module`并将所有的 `*.(css|scss|sass|less|styl(us)?)`文件视为 `CSS Modules`模块。
 
-**css.extract**： `默认：生产环境下是 true，开发环境下是 false`<br>
+**css.extract**： `默认：生产环境下是 true，开发环境下是 false` 
 是否将组件中的 `CSS` 提取至一个独立的 `CSS` 文件中 (而不是动态注入到 `JavaScript`中的`inline`代码)。
 
 同样当构建 `Web Components`组件时它总是会被禁用 (样式是 `inline` 的并注入到了 `shadowRoot` 中)。
@@ -216,10 +217,10 @@ error | 编译错误，导致编译失败
 
 提取 `CSS` 在开发环境模式下是默认不开启的，因为它和 `CSS` 热重载不兼容。然而，你仍然可以将这个值显性地设置为` true` 在所有情况下都强制提取。
 
-**css.sourceMap**： `默认：false `<br>
+**css.sourceMap**： `默认：false ` 
 是否为` CSS` 开启` source map`。设置为`true`之后可能会影响构建的性能。
 
-**css.loaderOptions**： `默认：{}`<br>
+**css.loaderOptions**： `默认：{}` 
 ```javascript
 module.exports = {
     css: {
@@ -249,7 +250,7 @@ module.exports = {
 * 有些值像 `host`、`port`和 `https` 可能会被`命令行参数`覆写。
 * 有些值像 `publicPath` 和 `historyApiFallback` 不应该被修改，因为它们需要和开发服务器的 `publicPath` 同步以保障正常的工作。
 
-**devServer.proxy**：<br>
+**devServer.proxy**： 
 如果你的前端应用和后端 API 服务器没有运行在同一个主机上，你需要在开发环境下将 API 请求`代理`到 API 服务器。这个问题可以通过`vue.config.js` 中的 `devServer.proxy` 选项来配置。
 ```javascript
 module.exports = {
@@ -258,13 +259,13 @@ module.exports = {
     }
 }
 ```
-**parallel**： `默认：require('os').cpus().length > 1`<br>
+**parallel**： `默认：require('os').cpus().length > 1` 
 是否为 `Babel` 或 `TypeScript` 使用 `thread-loader`。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
 
 **pwa**: 
 向 `PWA` 插件传递选项
 
-**pluginOptions**: <br>
+**pluginOptions**:  
 这是一个不进行任何 `schema` 验证的对象，因此它可以用来传递任何第三方插件选项。例如：
 ```javascript
 module.exports = {
