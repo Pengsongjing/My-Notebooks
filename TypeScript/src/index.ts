@@ -1,5 +1,5 @@
-function sum(a: number, b: number): number{
-    return a + b
-}
-console.log(sum(123,456))
-console.log(Promise)
+// 引入样式
+import './style/index.less';
+import GameControl from './moduls/GameControl';
+
+new GameControl()

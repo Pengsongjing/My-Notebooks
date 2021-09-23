@@ -7,6 +7,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 // webpack中的所有的配置信息都应该写在 module.exports中
 module.exports = {
 
+    optimization:{
+        minimize: false // 关闭代码压缩，可选
+    },
+
     // 指定入口文件
     entry: "./src/index.ts",
 
@@ -16,9 +20,8 @@ module.exports = {
         path: path.resolve(__dirname,'dist'),
         // 打包后的文件
         filename: "bundle.js",
-        // 高数webpack别使用箭头函数
         environment: {
-            arrowFunction: false
+            arrowFunction: false // 关闭webpack的箭头函数，可选
         }
     },
 
@@ -62,18 +65,45 @@ module.exports = {
                 ],
                 //要排除的文件夹
                 exclude: /node_modules/
+            },
+
+            // 设置less文件处理
+            {
+                test: /\.less$/,
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    // 引入 postcss
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        "postcss-preset-env",
+                                        {
+                                            browsers: 'last 2 versions'
+                                        }
+                                    ]
+                                ],
+                            }
+                        }
+                    },
+                    "less-loader"
+                ]// 先经过less-loader，再经过css-loader, style-loader
             }
         ]
     },
 
     // 配置webpack插件
     plugins: [
+        
+        new CleanWebpackPlugin(),
         // 自动生成index.html
         new HtmlWebpackPlugin({
             // 按照模板生成index.html
             template: './src/index.html'
-        }),
-        new CleanWebpackPlugin()
+        })
     ],
 
     // 用来设置引用模块
